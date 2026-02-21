@@ -1,0 +1,38 @@
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Bienvenido a nuestro ERP</h1>
+      <p class="subtitle">La solución integral para la gestión de tu empresa</p>
+      <div class="hero-buttons">
+        <button pButton type="button" label="Iniciar Sesión" routerLink="/login" class="p-button-primary"></button>
+        <button pButton type="button" label="Registrarse" routerLink="/register" class="p-button-secondary"></button>
+      </div>
+    </div>
+  </section>
+
+  <p-divider></p-divider>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>¿Por qué elegirnos?</h2>
+    <div class="features-grid">
+      <p-card *ngFor="let feature of features" class="feature-card">
+        <ng-template pTemplate="header">
+          <div class="feature-icon">{{ feature.icon }}</div>
+        </ng-template>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </p-card>
+    </div>
+  </section>
+
+  <p-divider></p-divider>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <h2>¿Listo para comenzar?</h2>
+    <p>Únete a cientos de empresas que confían en nuestro sistema</p>
+    <button pButton type="button" label="Crear Cuenta Ahora" routerLink="/register" class="p-button-primary p-button-lg"></button>
+  </section>
+</div>
