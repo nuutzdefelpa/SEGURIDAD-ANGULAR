@@ -1,0 +1,13 @@
+<h1>Login</h1>
+<form class="basic-form">
+  <label>Email</label>
+  <input type="email" [(ngModel)]="email" name="email" />
+  <label>Contraseña</label>
+  <p-password [(ngModel)]="password" name="password" toggleMask="true"></p-password>
+  <button pButton type="button" label="Entrar"></button>
+</form>
+
+<p>Aquí va el login</p>
+
+<a pButton routerLink="/" class="p-button-text">Volver a Landing</a>
+<a pButton routerLink="/register" class="p-button-text">Ir a Register</a>
