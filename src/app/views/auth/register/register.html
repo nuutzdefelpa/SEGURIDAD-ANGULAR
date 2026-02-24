@@ -1,16 +1,53 @@
 <h1>Register</h1>
-<form class="basic-form">
-  <label>Nombre</label>
-  <input type="text" [(ngModel)]="firstName" name="firstName" />
-  <label>Apellido</label>
-  <input type="text" [(ngModel)]="lastName" name="lastName" />
-  <label>Email</label>
-  <input type="email" [(ngModel)]="email" name="email" />
-  <label>Contraseña</label>
-  <p-password [(ngModel)]="password" name="password" toggleMask="true"></p-password>
-  <button pButton type="button" label="Registrar"></button>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="basic-form">
+  <p-message *ngIf="submitted && registerForm.invalid" severity="error" text="Corrige los errores del formulario"></p-message>
+
+  <label for="usuario">Usuario</label>
+  <input pInputText id="usuario" formControlName="usuario" />
+  <small *ngIf="submitted && f['usuario'].errors" class="error">Campo requerido</small>
+
+  <label for="fullName">Nombre Completo</label>
+  <input pInputText id="fullName" formControlName="fullName" />
+  <small *ngIf="submitted && f['fullName'].errors" class="error">Campo requerido</small>
+
+  <label for="email">Email</label>
+  <input pInputText id="email" formControlName="email" />
+  <small *ngIf="submitted && f['email'].errors" class="error">
+    <span *ngIf="f['email'].errors['required']">Campo requerido</span>
+    <span *ngIf="f['email'].errors['email']">Email inválido</span>
+  </small>
+
+  <label for="password">Contraseña</label>
+  <p-password id="password" formControlName="password" toggleMask="true"></p-password>
+  <small *ngIf="submitted && f['password'].errors" class="error">
+    <span *ngIf="f['password'].errors['required']">Campo requerido</span>
+    <span *ngIf="f['password'].errors['minlength']">Mínimo 10 caracteres</span>
+    <span *ngIf="f['password'].errors['pattern']">Debe contener un símbolo especial</span>
+  </small>
+
+  <label for="confirmPassword">Confirmar Contraseña</label>
+  <p-password id="confirmPassword" formControlName="confirmPassword" toggleMask="true"></p-password>
+  <small *ngIf="submitted && registerForm.errors?.['passwordMismatch']" class="error">Las contraseñas no coinciden</small>
+
+  <label for="dob">Fecha de Nacimiento</label>
+  <p-date-picker id="dob" formControlName="dob" [locale]="es" [maxDate]="today" showIcon="true"></p-date-picker>
+  <small *ngIf="submitted && f['dob'].errors" class="error">
+    <span *ngIf="f['dob'].errors['required']">Campo requerido</span>
+    <span *ngIf="f['dob'].errors['ageInvalid']">Debes ser mayor de 18 años</span>
+  </small>
+
+  <label for="phone">Teléfono</label>
+  <input pInputText id="phone" formControlName="phone" />
+  <small *ngIf="submitted && f['phone'].errors" class="error">
+    <span *ngIf="f['phone'].errors['required']">Campo requerido</span>
+    <span *ngIf="f['phone'].errors['pattern']">Solo números</span>
+  </small>
+
+  <label for="address">Dirección</label>
+  <input pInputText id="address" formControlName="address" />
+  <small *ngIf="submitted && f['address'].errors" class="error">Campo requerido</small>
+
+  <button pButton type="submit" label="Registrar"></button>
 </form>
 
-<p>Aquí va el registro</p>
-
-<a pButton routerLink="/login" class="p-button-text">Volver a Login</a>
+<a pButton routerLink="/login" class="p-button-text mt-4">Volver a Login</a>
