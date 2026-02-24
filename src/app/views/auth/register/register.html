@@ -30,7 +30,7 @@
   <small *ngIf="submitted && registerForm.errors?.['passwordMismatch']" class="error">Las contraseñas no coinciden</small>
 
   <label for="dob">Fecha de Nacimiento</label>
-  <p-date-picker id="dob" formControlName="dob" [locale]="es" [maxDate]="today" showIcon="true"></p-date-picker>
+  <p-date-picker ngSkipHydration id="dob" formControlName="dob" [maxDate]="today" showIcon="true"></p-date-picker>
   <small *ngIf="submitted && f['dob'].errors" class="error">
     <span *ngIf="f['dob'].errors['required']">Campo requerido</span>
     <span *ngIf="f['dob'].errors['ageInvalid']">Debes ser mayor de 18 años</span>
