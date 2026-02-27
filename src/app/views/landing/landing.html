@@ -1,48 +1,65 @@
-<h1>Landing Page</h1>
-<p>Esta es la página principal</p>
-
-<a pButton routerLink="/login" class="p-button-text">Ir a Login</a>
-
-<!-- demo de AnimateOnScroll -->
-<div class="card flex flex-col items-center overflow-hidden mt-8">
-    <div class="flex flex-col items-center gap-2">
-        <span class="text-xl font-medium">Scroll Down</span>
-        <span class="animate-bounce h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
-            <i class="pi pi-arrow-down"></i>
-        </span>
+<div class="landing-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">🦖 Bienvenido a Dino Store 🦕</h1>
+      <p class="hero-subtitle">La tienda más grande de dinosaurios del mundo. ¡Compra tus criaturas prehistóricas favoritas ahora!</p>
+      <div class="hero-buttons">
+        <a pButton routerLink="/login" label="Comprar Ahora" icon="pi pi-shopping-cart" class="hero-btn"></a>
+        <a pButton routerLink="/register" label="Crear Cuenta" icon="pi pi-user-plus" class="hero-btn secondary"></a>
+      </div>
     </div>
-    <div class="h-[40rem]"></div>
-    <div class="flex flex-wrap justify-center gap-8">
-        <div
-            pAnimateOnScroll
-            enterClass="animate-enter fade-in-10 slide-in-from-l-8 animate-duration-1000"
-            leaveClass="animate-leave fade-out-0"
-            class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-80 rounded-2xl p-8 gap-4"
-        >
-            <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                <i class="pi pi-user !text-2xl"></i>
-            </div>
-            <span class="text-2xl font-bold">Individual</span>
-            <span class="text-muted-color text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-        </div>
-        <div pAnimateOnScroll enterClass="animate-enter fade-in-10 animate-duration-1000" leaveClass="animate-leave fade-out-0" class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-80 rounded-2xl p-8 gap-4">
-            <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                <i class="pi pi-users !text-2xl"></i>
-            </div>
-            <span class="text-2xl font-bold">Team</span>
-            <span class="text-muted-color text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-        </div>
-        <div
-            pAnimateOnScroll
-            enterClass="animate-enter fade-in-10 slide-in-from-r-8 animate-duration-1000"
-            leaveClass="animate-leave fade-out-0"
-            class="flex flex-col border border-surface shadow-lg justify-center items-center max-w-80 rounded-2xl p-8 gap-4"
-        >
-            <div class="rounded-full bg-primary text-primary-contrast w-12 h-12 flex items-center justify-center">
-                <i class="pi pi-building !text-2xl"></i>
-            </div>
-            <span class="text-2xl font-bold">Enterprise</span>
-            <span class="text-muted-color text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
-        </div>
+    <div class="hero-emoji">
+      🦖🦕🦖
     </div>
+  </section>
+
+  <!-- Featured Dinosaurs -->
+  <section class="dinosaurs-section">
+    <h2 class="section-title">Nuestros Dinosaurios Destacados</h2>
+    <p class="section-subtitle">Colecciona a tus favoritos del mundo jurásico</p>
+    
+    <div class="dinosaurs-grid">
+      <div *ngFor="let dino of dinosaurs" pAnimateOnScroll enterClass="animate-enter fade-in-10 slide-in-from-b-4 animate-duration-800" class="dino-card">
+        <p-card>
+          <div class="dino-emoji">{{ dino.emoji }}</div>
+          <h3 class="dino-name">{{ dino.name }}</h3>
+          <p class="dino-description">{{ dino.description }}</p>
+          <p class="dino-price">{{ dino.price }}</p>
+          <button pButton label="Ver Detalles" icon="pi pi-eye" class="dino-btn"></button>
+        </p-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="features-section">
+    <h2 class="section-title">¿Por qué elegirnos?</h2>
+    
+    <div class="features-grid">
+      <div *ngFor="let feature of features" pAnimateOnScroll enterClass="animate-enter fade-in-10 animate-duration-800" class="feature-card">
+        <p-card>
+          <div class="feature-icon">
+            <i [class]="feature.icon"></i>
+          </div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </p-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>¿Listo para unirte a la comunidad Dino?</h2>
+      <p>Miles de coleccionistas ya disfrutan de sus dinosaurios. ¡No te quedes atrás!</p>
+      <a pButton routerLink="/register" label="Regístrate Gratis" icon="pi pi-arrow-right" class="cta-btn"></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>&copy; 2026 Dino Store | La tienda de dinosaurios más divertida del internet 🦖</p>
+  </footer>
 </div>

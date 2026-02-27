@@ -1,0 +1,45 @@
+<div class="home-container">
+  <div class="home-header">
+    <h1>Dashboard</h1>
+    <p>Bienvenido a tu panel de control</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let stat of dashboardStats" class="stat-card">
+      <p-card>
+        <div class="stat-content">
+          <div class="stat-icon" [style.color]="stat.color">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-text">
+            <h3>{{ stat.title }}</h3>
+            <p class="stat-value">{{ stat.value }}</p>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="activity-section">
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <h3>Actividad Reciente</h3>
+        </div>
+      </ng-template>
+      <div class="activity-list">
+        <div *ngFor="let activity of recentActivities" class="activity-item">
+          <p-avatar icon="pi pi-user" size="large" [style]="{'background-color': '#3498db', 'color': '#fff'}"></p-avatar>
+          <div class="activity-info">
+            <p class="activity-user">{{ activity.user }}</p>
+            <p class="activity-action">{{ activity.action }}</p>
+            <small class="activity-time">{{ activity.time }}</small>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

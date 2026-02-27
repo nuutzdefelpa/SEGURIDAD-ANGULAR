@@ -1,6 +1,7 @@
 <h1>Login</h1>
 <form class="basic-form" (ngSubmit)="onSubmit()">
   <p-message *ngIf="loginError" severity="error" [text]="loginError"></p-message>
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
   <label>Email</label>
   <input pInputText type="email" [(ngModel)]="email" name="email" />
   <label>Contraseña</label>
@@ -8,7 +9,7 @@
   <button pButton type="submit" label="Entrar"></button>
 </form>
 
-<p>Aquí va el login</p>
+<p>Aquí va el login wuuu</p>
 
 <a pButton routerLink="/" class="p-button-text">Volver a Landing</a>
 <a pButton routerLink="/register" class="p-button-text">Ir a Register</a>

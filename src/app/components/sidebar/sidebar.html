@@ -1,0 +1,27 @@
+<div class="sidebar-container">
+  <div class="sidebar-header">
+    <h3>ERP Menu</h3>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="menu-items">
+    <button
+      *ngFor="let item of menuItems"
+      pButton
+      [routerLink]="item.routerLink"
+      class="menu-item"
+      severity="secondary"
+      text
+    >
+      <i [class]="item.icon"></i>
+      <span>{{ item.label }}</span>
+    </button>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="sidebar-footer">
+    <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" severity="danger" class="w-full"></button>
+  </div>
+</div>
