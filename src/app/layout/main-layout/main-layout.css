@@ -9,7 +9,8 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
-  background-color: #f5f7fa;
+  /* mantener la paleta verde-azul */
+  background: linear-gradient(135deg, #2ecc71 5%, #3498db 95%);
 }
 
 /* Scrollbar styling */

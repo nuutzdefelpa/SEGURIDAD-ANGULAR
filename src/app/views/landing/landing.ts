@@ -12,53 +12,49 @@ import { CardModule } from 'primeng/card';
   styleUrl: './landing.css',
 })
 export class Landing {
-  dinosaurs = [
+  modules = [
     {
-      name: 'T-Rex',
+      name: 'Ventas',
       emoji: '🦖',
-      description: 'El rey de los dinosaurios. Feroz, imponente y coleccionador\'s item favorito.',
-      price: '$299.99'
+      description: 'Gestión completa de ventas, pedidos y facturación.'
     },
     {
-      name: 'Triceratops',
-      emoji: '🦖',
-      description: 'Con tres cuernos y un corazón de oro. Perfecto para amantes de la naturaleza.',
-      price: '$199.99'
+      name: 'Inventario',
+      emoji: '🦕',
+      description: 'Control de stock, materiales y productos en tiempo real.'
     },
     {
-      name: 'Stegosaurus',
+      name: 'Clientes',
       emoji: '🦖',
-      description: 'Placas dorsales que brillan. Un clásico del Jurásico.',
-      price: '$249.99'
+      description: 'Base de datos de clientes con historial y contacto.'
     },
     {
-      name: 'Velociraptor',
-      emoji: '🦖',
-      description: 'Rápido, inteligente y peligroso. Para los aventureros.',
-      price: '$179.99'
+      name: 'Proyectos',
+      emoji: '🦕',
+      description: 'Planea y supervisa trabajos especiales y contratos.'
     }
   ];
 
   features = [
     {
-      icon: 'pi pi-home',
-      title: 'Tienda Segura',
-      description: 'Compra tus dinosaurios favoritos con total seguridad.'
+      icon: 'pi pi-lock',
+      title: 'Seguridad de datos',
+      description: 'Tu información protegida con encriptación de último nivel.'
     },
     {
-      icon: 'pi pi-truck',
-      title: 'Envío Rápido',
-      description: 'Entrega en 24 horas a cualquier parte del mundo.'
+      icon: 'pi pi-cog',
+      title: 'Totalmente personalizable',
+      description: 'Adapta los módulos a las necesidades de tu empresa.'
     },
     {
-      icon: 'pi pi-shield',
-      title: 'Garantía 100%',
-      description: 'Satisfecho o tu dinero de vuelta. Sin preguntas.'
+      icon: 'pi pi-cloud',
+      title: 'Acceso en la nube',
+      description: 'Trabaja desde cualquier lugar con una sola cuenta.'
     },
     {
-      icon: 'pi pi-heart',
-      title: 'Atención Premium',
-      description: 'Soporte 24/7 para todas tus dudas de dinosaurios.'
+      icon: 'pi pi-headset',
+      title: 'Soporte 24/7',
+      description: 'Asistencia continua para mantenerte siempre operativo.'
     }
   ];
 }

@@ -51,6 +51,13 @@
   margin-top: auto;
 }
 
+.sidebar-version {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-align: center;
+}
+
 .w-full {
   width: 100% !important;
 }

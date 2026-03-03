@@ -12,15 +12,18 @@ import { DividerModule } from 'primeng/divider';
 })
 export class Sidebar {
   menuItems = [
-    { label: 'Home', icon: 'pi pi-home', routerLink: '/home' },
-    { label: 'Dashboard', icon: 'pi pi-chart-bar', routerLink: '#' },
-    { label: 'Productos', icon: 'pi pi-shopping-cart', routerLink: '#' },
-    { label: 'Clientes', icon: 'pi pi-users', routerLink: '#' },
-    { label: 'Reportes', icon: 'pi pi-file', routerLink: '#' },
+    { label: 'Dino-Home', icon: 'pi pi-home', routerLink: '/home' },
+    { label: 'Dino-Dashboard', icon: 'pi pi-chart-bar', routerLink: '#' },
+    { label: 'Dino-Productos', icon: 'pi pi-shopping-cart', routerLink: '#' },
+    { label: 'Dino-Clientes', icon: 'pi pi-users', routerLink: '#' },
+    { label: 'Dino-Reportes', icon: 'pi pi-file', routerLink: '#' },
+    { label: 'Dino-Usuarios', icon: 'pi pi-user', routerLink: '/user' },
+    { label: 'Dino-Grupos', icon: 'pi pi-users', routerLink: '/groups' },
   ];
 
+  version = 'dino-version v1.dino.alpha🦖';
+
   logout(): void {
-    // Redirigir a landing page
     window.location.href = '/landing';
   }
 }

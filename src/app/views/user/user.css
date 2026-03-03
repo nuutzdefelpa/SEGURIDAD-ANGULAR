@@ -1,0 +1,10 @@
+.user-container { padding: 1.5rem; }
+.user-header { display: flex; gap: 1rem; align-items: center; }
+.user-avatar { background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%); color: white; }
+.user-body { margin-top: 1rem; display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
+.field { color: #073642; }
+.muted { color: #6c757d; margin: 0; }
+
+/* Mantener dino‑estilos: tarjetas claras */
+.user-container .p-card { background-color: #e6f9ff !important; color: #073642; }
+.user-actions { display: flex; justify-content: flex-end; margin-top: 1rem; }

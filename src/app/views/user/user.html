@@ -1,0 +1,26 @@
+<div class="user-container">
+	<p-card>
+		<ng-template pTemplate="header">
+			<div class="user-header">
+				<p-avatar label="D" size="large" styleClass="user-avatar"></p-avatar>
+				<div>
+					<h2>{{ user.fullName }} 🦖</h2>
+					<p class="muted">@{{ user.usuario }}</p>
+				</div>
+			</div>
+		</ng-template>
+
+		<div class="user-body">
+			<div class="field"><strong>Email:</strong> {{ user.email }}</div>
+			<div class="field"><strong>Fecha de nacimiento:</strong> {{ user.dob }}</div>
+			<div class="field"><strong>Teléfono:</strong> {{ user.phone }}</div>
+			<div class="field"><strong>Dirección:</strong> {{ user.address }}</div>
+		</div>
+
+		<ng-template pTemplate="footer">
+			<div class="user-actions">
+				<button pButton label="Editar perfil" icon="pi pi-pencil" class="p-button-plain"></button>
+			</div>
+		</ng-template>
+	</p-card>
+</div>

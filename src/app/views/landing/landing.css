@@ -5,7 +5,8 @@
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* green-blue gradient como el dino */
+  background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%);
   padding: 6rem 2rem;
   text-align: center;
   color: white;
@@ -75,7 +76,7 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%, 100% { 
     transform: translateY(0px);
   }
   50% {
@@ -83,7 +84,6 @@
   }
 }
 
-/* Section Styling */
 .section-title {
   font-size: 2.5rem;
   color: #2c3e50;
@@ -98,7 +98,6 @@
   margin-bottom: 3rem;
 }
 
-/* Dinosaurs Section */
 .dinosaurs-section {
   padding: 4rem 2rem;
   background-color: #f8f9fa;
@@ -167,7 +166,15 @@
   font-weight: 600;
 }
 
-/* Features Section */
+.modules-section {padding: 4rem 2rem; background-color: #f8f9fa;}
+.modules-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;}
+.module-card {transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%;}
+.module-card:hover {transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;}
+.module-emoji {font-size: 4rem; margin-bottom: 1rem; display: inline-block; animation: spin 2s linear infinite;}
+.module-name {font-size: 1.5rem; color: #2c3e50; margin: 1rem 0 0.5rem 0; font-weight: bold;}
+.module-description {color: #7f8c8d; line-height: 1.6; font-size: 0.95rem; margin-bottom: 1rem;}
+.module-btn {width: 100%; background-color: #667eea !important; border: none !important; color: white !important; font-weight: 600;}
+
 .features-section {
   padding: 4rem 2rem;
   background-color: white;
@@ -196,6 +203,24 @@
   margin-bottom: 1rem;
 }
 
+/* tarjetas más claras (azul cielo) para módulos y features */
+.landing-container .p-card {
+  background-color: #e6f9ff !important;
+  color: #073642;
+  box-shadow: 0 6px 18px rgba(2,10,15,0.06) !important;
+  border-radius: 8px;
+}
+
+.landing-container .module-card .p-card,
+.landing-container .feature-card .p-card {
+  background-color: #dff6ff !important;
+}
+
+.landing-container .modules-section,
+.landing-container .features-section {
+  background: transparent;
+}
+
 .feature-card h3 {
   color: #2c3e50;
   margin: 1rem 0 0.5rem 0;
@@ -207,7 +232,6 @@
   line-height: 1.6;
 }
 
-/* CTA Section */
 .cta-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 4rem 2rem;
@@ -239,7 +263,6 @@
   background-color: #f0f0f0 !important;
 }
 
-/* Footer */
 .landing-footer {
   background-color: #2c3e50;
   color: white;

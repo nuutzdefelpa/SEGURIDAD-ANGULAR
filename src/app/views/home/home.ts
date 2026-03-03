@@ -13,16 +13,16 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class Home {
   dashboardStats = [
-    { title: 'Total Ventas', value: '$45,250', icon: 'pi pi-dollar', color: '#3498db' },
-    { title: 'Clientes', value: '1,240', icon: 'pi pi-users', color: '#2ecc71' },
-    { title: 'Órdenes', value: '856', icon: 'pi pi-shopping-cart', color: '#e74c3c' },
-    { title: 'Ingresos', value: '$12,450', icon: 'pi pi-chart-line', color: '#f39c12' },
+    { title: 'Facturas Emitidas', value: '1,234', icon: 'pi pi-file', color: '#3498db' },
+    { title: 'Clientes Activos', value: '876', icon: 'pi pi-users', color: '#2ecc71' },
+    { title: 'Items en Inventario', value: '3,450', icon: 'pi pi-box', color: '#e74c3c' },
+    { title: 'Proyectos Activos', value: '27', icon: 'pi pi-briefcase', color: '#f39c12' },
   ];
 
   recentActivities = [
-    { user: 'Juan Pérez', action: 'Creó una nueva orden', time: 'Hace 2 horas' },
-    { user: 'María García', action: 'Actualizó cliente #1234', time: 'Hace 4 horas' },
-    { user: 'Carlos López', action: 'Finalizó reporte mensual', time: 'Hace 6 horas' },
-    { user: 'Ana Martínez', action: 'Agregó nuevo producto', time: 'Hace 8 horas' },
+    { user: 'Juan Pérez', action: 'Generó factura #456', time: 'Hace 2 horas' },
+    { user: 'María García', action: 'Registró cliente nuevo', time: 'Hace 4 horas' },
+    { user: 'Carlos López', action: 'Actualizó inventario', time: 'Hace 6 horas' },
+    { user: 'Ana Martínez', action: 'Cerró proyecto Alpha', time: 'Hace 8 horas' },
   ];
 }
