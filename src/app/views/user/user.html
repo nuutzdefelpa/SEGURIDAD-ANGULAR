@@ -1,26 +1,85 @@
-<div class="user-container">
-	<p-card>
-		<ng-template pTemplate="header">
-			<div class="user-header">
-				<p-avatar label="D" size="large" styleClass="user-avatar"></p-avatar>
-				<div>
-					<h2>{{ user.fullName }} 🦖</h2>
-					<p class="muted">@{{ user.usuario }}</p>
-				</div>
-			</div>
-		</ng-template>
+<p-confirmDialog></p-confirmDialog>
 
-		<div class="user-body">
-			<div class="field"><strong>Email:</strong> {{ user.email }}</div>
-			<div class="field"><strong>Fecha de nacimiento:</strong> {{ user.dob }}</div>
-			<div class="field"><strong>Teléfono:</strong> {{ user.phone }}</div>
-			<div class="field"><strong>Dirección:</strong> {{ user.address }}</div>
-		</div>
+<div class="user-container" *ngIf="!userDeleted; else deletedTpl">
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="user-header">
+        <p-avatar label="D" size="large" styleClass="user-avatar"></p-avatar>
+        <div>
+          <h2>{{ user.fullName }} 🦖</h2>
+          <p class="muted">@{{ user.usuario }}</p>
+        </div>
+      </div>
+    </ng-template>
 
-		<ng-template pTemplate="footer">
-			<div class="user-actions">
-				<button pButton label="Editar perfil" icon="pi pi-pencil" class="p-button-plain"></button>
-			</div>
-		</ng-template>
-	</p-card>
+    <div class="user-body">
+      <div class="field"><strong>Email:</strong> {{ user.email }}</div>
+      <div class="field"><strong>Fecha de nacimiento:</strong> {{ user.dob }}</div>
+      <div class="field"><strong>Teléfono:</strong> {{ user.phone }}</div>
+      <div class="field"><strong>Dirección:</strong> {{ user.address }}</div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="user-actions">
+        <button
+          pButton
+          label="Editar perfil"
+          icon="pi pi-pencil"
+          class="p-button-plain"
+          (click)="editProfile()"
+        ></button>
+        <button
+          pButton
+          label="Borrar cuenta"
+          icon="pi pi-trash"
+          class="p-button-plain p-button-danger"
+          (click)="confirmDelete()"
+        ></button>
+      </div>
+    </ng-template>
+  </p-card>
 </div>
+
+<ng-template #deletedTpl>
+  <div class="user-container">
+    <p-card>
+      <div class="user-body">
+        <h3>Cuenta eliminada</h3>
+        <p>Ya no hay datos disponibles.</p>
+      </div>
+    </p-card>
+  </div>
+</ng-template>
+
+<!-- diálogo de edición -->
+<p-dialog header="Editar perfil" [(visible)]="displayEditDialog" [modal]="true" [style]="{width:'450px'}" [closable]="true">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="fullName">Nombre completo</label>
+      <input id="fullName" type="text" pInputText [(ngModel)]="userCopy.fullName" />
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" type="text" pInputText [(ngModel)]="userCopy.email" />
+    </div>
+    <div class="p-field">
+      <label for="dob">Fecha de nacimiento</label>
+      <input id="dob" type="text" pInputText [(ngModel)]="userCopy.dob" />
+    </div>
+    <div class="p-field">
+      <label for="phone">Teléfono</label>
+      <input id="phone" type="text" pInputText [(ngModel)]="userCopy.phone" />
+    </div>
+    <div class="p-field">
+      <label for="address">Dirección</label>
+      <textarea id="address" pTextarea [(ngModel)]="userCopy.address"></textarea>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Guardar" icon="pi pi-check" (click)="saveProfile()" class="p-button-success"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="displayEditDialog=false" class="p-button-secondary"></button>
+  </p-footer>
+  <div class="modal-extra-footer">
+    <button pButton label="Guardar" icon="pi pi-check" (click)="saveProfile()" class="p-button-success"></button>
+  </div>
+</p-dialog>

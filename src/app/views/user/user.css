@@ -1,4 +1,11 @@
-.user-container { padding: 1.5rem; }
+.user-container { 
+  padding: 1.5rem; 
+  background: #2ecc71; /* dinoverde */
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 500px;
+  color: #073642;
+}
 .user-header { display: flex; gap: 1rem; align-items: center; }
 .user-avatar { background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%); color: white; }
 .user-body { margin-top: 1rem; display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
@@ -8,3 +15,35 @@
 /* Mantener dino‑estilos: tarjetas claras */
 .user-container .p-card { background-color: #e6f9ff !important; color: #073642; }
 .user-actions { display: flex; justify-content: flex-end; margin-top: 1rem; }
+
+/* dialog/edit form spacing */
+.p-dialog .p-fluid .p-field { margin-bottom: 1rem; }
+
+/* label color in dialog */
+.p-dialog .p-field label { color: #2ecc71; font-weight: bold; }
+
+/* inputs full width + centered container */
+.p-dialog .p-field { display: flex; flex-direction: column; align-items: center; }
+.p-dialog input,
+.p-dialog textarea { width: 90%; }
+
+/* dialog background dinoverde */
+:host ::ng-deep .p-dialog .p-dialog-content { background-color: #2ecc71; color: #073642; }
+:host ::ng-deep .p-dialog .p-footer { display: flex; justify-content: flex-end; background: transparent; }
+
+/* header style */
+:host ::ng-deep .p-dialog .p-dialog-titlebar { background-color: #2ecc71 !important; color: #073642 !important; }
+:host ::ng-deep .p-dialog .p-dialog-title { font-weight: bold; }
+
+/* button spacing inside dialog */
+.p-dialog .p-footer .p-button { margin-left: 0.5rem; }
+
+/* manual footer button container */
+.modal-extra-footer { display: flex; justify-content: center; margin-top: 1rem; }
+.modal-extra-footer .p-button { width: 10rem; }
+
+/* make success button stand out */
+.p-dialog .p-button-success { background-color: #073642 !important; border-color: #073642 !important; color: white !important; }
+
+/* caso cuenta eliminada */
+.user-container h3 { color: #c00; }

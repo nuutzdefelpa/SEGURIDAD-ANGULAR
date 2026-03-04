@@ -1,0 +1,83 @@
+<div class="crud-container">
+  <button pButton type="button" label="Agregar grupo" icon="pi pi-plus" class="p-button-success" (click)="showNew()"></button>
+
+  <p-table [value]="activeGroups" class="groups-table" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nivel</th>
+        <th>Autor</th>
+        <th>Nombre</th>
+        <th>Integrantes</th>
+        <th>Tickets</th>
+        <th>Descripción</th>
+        <th style="width: 8rem">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-group>
+      <tr>
+        <td>{{ group.nivel }}</td>
+        <td>{{ group.autor }}</td>
+        <td>{{ group.nombre }}</td>
+        <td>{{ group.integrantes }}</td>
+        <td>{{ group.tickets }}</td>
+        <td>{{ group.descripcion }}</td>
+        <td>
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-success p-button-sm p-button-rounded"
+            (click)="showEdit(group)"
+            title="Editar"
+          ></button>
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-danger p-button-sm p-button-rounded"
+            (click)="delete(group)"
+            title="Eliminar"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog *ngIf="selectedGroup" header="{{ isNew ? 'Nuevo grupo' : 'Editar grupo' }}" [(visible)]="displayDialog" [modal]="true" [style]="{width: '500px'}" [closable]="true">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="nivel">Nivel</label>
+        <input id="nivel" type="text" pInputText [(ngModel)]="selectedGroup!.nivel" />
+      </div>
+      <div class="p-field">
+        <label for="autor">Autor</label>
+        <input id="autor" type="text" pInputText [(ngModel)]="selectedGroup!.autor" />
+      </div>
+      <div class="p-field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" pInputText [(ngModel)]="selectedGroup!.nombre" />
+      </div>
+      <div class="p-field p-grid">
+        <div class="p-col-6">
+          <label for="integrantes">Integrantes</label>
+          <p-inputNumber id="integrantes" [(ngModel)]="selectedGroup!.integrantes" [min]="0"></p-inputNumber>
+        </div>
+        <div class="p-col-6">
+          <label for="tickets">Tickets</label>
+          <p-inputNumber id="tickets" [(ngModel)]="selectedGroup!.tickets" [min]="0"></p-inputNumber>
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" pTextarea [(ngModel)]="selectedGroup!.descripcion"></textarea>
+      </div>
+    </div>
+
+    <p-footer>
+      <button pButton label="Guardar" icon="pi pi-check" (click)="save()" class="p-button-success"></button>
+      <button pButton label="Cancelar" icon="pi pi-times" (click)="displayDialog=false" class="p-button-secondary"></button>
+    </p-footer>
+    <!-- extra footer for visibility -->
+    <div class="modal-extra-footer">
+      <button pButton label="Guardar" icon="pi pi-check" (click)="save()" class="p-button-success"></button>
+    </div>
+  </p-dialog>
+</div>
