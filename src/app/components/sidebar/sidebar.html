@@ -7,7 +7,7 @@
 
   <div class="menu-items">
     <button
-      *ngFor="let item of menuItems"
+      *ngFor="let item of visibleMenuItems"
       pButton
       [routerLink]="item.routerLink"
       class="menu-item"

@@ -22,6 +22,7 @@
     <ng-template pTemplate="footer">
       <div class="user-actions">
         <button
+          *appHasPermission="'user:edit'"
           pButton
           label="Editar perfil"
           icon="pi pi-pencil"
@@ -29,6 +30,7 @@
           (click)="editProfile()"
         ></button>
         <button
+          *appHasPermission="'user:delete'"
           pButton
           label="Borrar cuenta"
           icon="pi pi-trash"
@@ -75,11 +77,11 @@
       <textarea id="address" pTextarea [(ngModel)]="userCopy.address"></textarea>
     </div>
   </div>
-  <p-footer>
+  <p-footer *appHasPermission="'user:edit'">
     <button pButton label="Guardar" icon="pi pi-check" (click)="saveProfile()" class="p-button-success"></button>
     <button pButton label="Cancelar" icon="pi pi-times" (click)="displayEditDialog=false" class="p-button-secondary"></button>
   </p-footer>
-  <div class="modal-extra-footer">
+  <div *appHasPermission="'user:edit'" class="modal-extra-footer">
     <button pButton label="Guardar" icon="pi pi-check" (click)="saveProfile()" class="p-button-success"></button>
   </div>
 </p-dialog>

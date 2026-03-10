@@ -9,6 +9,8 @@ import { TextareaModule } from 'primeng/textarea';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
+import { HasPermissionDirective } from '../../directives/has-permission.directive';
+import { PermissionsService } from '../../services/permissions.service';
 
 @Component({
   standalone: true,
@@ -23,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     InputTextModule,
     TextareaModule,
     ConfirmDialogModule,
+    HasPermissionDirective,
   ],
   providers: [ConfirmationService],
   templateUrl: './user.html',
@@ -43,19 +46,34 @@ export class User {
   displayEditDialog = false;
   userDeleted = false;
 
-  constructor(private confirmation: ConfirmationService) {}
+  constructor(
+    private readonly confirmation: ConfirmationService,
+    private readonly permissionsService: PermissionsService
+  ) {}
 
   editProfile(): void {
+    if (!this.permissionsService.hasPermission('user:edit')) {
+      return;
+    }
+
     this.userCopy = { ...this.user };
     this.displayEditDialog = true;
   }
 
   saveProfile(): void {
+    if (!this.permissionsService.hasPermission('user:edit')) {
+      return;
+    }
+
     this.user = { ...this.userCopy };
     this.displayEditDialog = false;
   }
 
   confirmDelete(): void {
+    if (!this.permissionsService.hasPermission('user:delete')) {
+      return;
+    }
+
     this.confirmation.confirm({
       message: '¿Deseas eliminar tu cuenta? Esta acción es lógica y se puede revertir.',
       accept: () => {

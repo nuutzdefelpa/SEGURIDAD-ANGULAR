@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { HasPermissionDirective } from '../../../directives/has-permission.directive';
+import { Permission, PermissionsService } from '../../../services/permissions.service';
 
 interface Group {
   id: number;
@@ -25,6 +27,7 @@ interface Group {
   imports: [
     CommonModule,
     FormsModule,
+    HasPermissionDirective,
     TableModule,
     ButtonModule,
     DialogModule,
@@ -41,7 +44,7 @@ export class Crud {
   displayDialog = false;
   isNew = false;
 
-  constructor() {
+  constructor(private readonly permissionsService: PermissionsService) {
     // seed with some placeholder data
     this.groups = [
       {
@@ -67,7 +70,19 @@ export class Crud {
     ];
   }
 
+  hasPermission(permission: Permission): boolean {
+    return this.permissionsService.hasPermission(permission);
+  }
+
+  get canSeeActions(): boolean {
+    return this.hasPermission('group:edit') || this.hasPermission('group:delete');
+  }
+
   showNew(): void {
+    if (!this.hasPermission('group:add')) {
+      return;
+    }
+
     this.selectedGroup = {
       id: 0,
       nivel: '',
@@ -83,6 +98,10 @@ export class Crud {
   }
 
   showEdit(group: Group): void {
+    if (!this.hasPermission('group:edit')) {
+      return;
+    }
+
     this.selectedGroup = { ...group };
     this.isNew = false;
     this.displayDialog = true;
@@ -92,11 +111,20 @@ export class Crud {
     if (!this.selectedGroup) {
       return;
     }
+
+    if (this.isNew && !this.hasPermission('group:add')) {
+      return;
+    }
+
+    if (!this.isNew && !this.hasPermission('group:edit')) {
+      return;
+    }
+
     if (this.isNew) {
       // assign new id
-      const maxId = this.groups.reduce((max, g) => (g.id > max ? g.id : max), 0);
+      const maxId = this.groups.length === 0 ? 0 : Math.max(...this.groups.map(group => group.id));
       this.selectedGroup.id = maxId + 1;
-      this.groups.push(this.selectedGroup as Group);
+      this.groups.push(this.selectedGroup);
     } else {
       const idx = this.groups.findIndex(g => g.id === this.selectedGroup!.id);
       if (idx !== -1) {
@@ -107,6 +135,10 @@ export class Crud {
   }
 
   delete(group: Group): void {
+    if (!this.hasPermission('group:delete')) {
+      return;
+    }
+
     // logical delete
     const idx = this.groups.findIndex(g => g.id === group.id);
     if (idx !== -1) {

@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
+import { PermissionsService } from '../../../services/permissions.service';
 
 @Component({
   selector: 'app-login',
@@ -19,12 +20,10 @@ export class Login {
   loginError = '';
   successMessage = '';
 
-  private readonly credentials = {
-    email: 'admin@erp.com',
-    password: 'P@ssw0rd!'
-  };
-
-  constructor(private router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly permissionsService: PermissionsService
+  ) {}
 
   onSubmit(): void {
     this.loginError = '';
@@ -33,16 +32,16 @@ export class Login {
       return;
     }
     if (this.email === 'admin' && this.password === '1234*A') {
+      this.permissionsService.loginAsSuperuser('superadmin');
       this.successMessage = 'Bienvenido administrador, login exitoso!';
       setTimeout(() => this.router.navigate(['/home']), 1500);
       return;
     }
 
-    if (
-      this.email === this.credentials.email &&
-      this.password === this.credentials.password
-    ) {
-      alert('Login exitoso (simulado)');
+    if (this.email.trim() && this.password.trim()) {
+      this.permissionsService.loginAsDefaultUser(this.email);
+      this.successMessage = 'Login exitoso';
+      setTimeout(() => this.router.navigate(['/home']), 1000);
     } else {
       this.loginError = 'Credenciales inválidas';
     }

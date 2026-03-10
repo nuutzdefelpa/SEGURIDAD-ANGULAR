@@ -1,16 +1,24 @@
 <div class="crud-container">
-  <button pButton type="button" label="Agregar grupo" icon="pi pi-plus" class="p-button-success" (click)="showNew()"></button>
+  <button
+    *appHasPermission="'group:add'"
+    pButton
+    type="button"
+    label="Agregar grupo"
+    icon="pi pi-plus"
+    class="p-button-success"
+    (click)="showNew()"
+  ></button>
 
   <p-table [value]="activeGroups" class="groups-table" dataKey="id">
     <ng-template pTemplate="header">
       <tr>
-        <th>Nivel</th>
-        <th>Autor</th>
-        <th>Nombre</th>
-        <th>Integrantes</th>
-        <th>Tickets</th>
-        <th>Descripción</th>
-        <th style="width: 8rem">Acciones</th>
+        <th scope="col">Nivel</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Integrantes</th>
+        <th scope="col">Tickets</th>
+        <th scope="col">Descripción</th>
+        <th *ngIf="canSeeActions" scope="col" style="width: 8rem">Acciones</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-group>
@@ -21,8 +29,9 @@
         <td>{{ group.integrantes }}</td>
         <td>{{ group.tickets }}</td>
         <td>{{ group.descripcion }}</td>
-        <td>
+        <td *ngIf="canSeeActions">
           <button
+            *appHasPermission="'group:edit'"
             pButton
             icon="pi pi-pencil"
             class="p-button-success p-button-sm p-button-rounded"
@@ -30,6 +39,7 @@
             title="Editar"
           ></button>
           <button
+            *appHasPermission="'group:delete'"
             pButton
             icon="pi pi-trash"
             class="p-button-danger p-button-sm p-button-rounded"
@@ -72,12 +82,26 @@
     </div>
 
     <p-footer>
-      <button pButton label="Guardar" icon="pi pi-check" (click)="save()" class="p-button-success"></button>
+      <button
+        *appHasPermission="isNew ? 'group:add' : 'group:edit'"
+        pButton
+        label="Guardar"
+        icon="pi pi-check"
+        (click)="save()"
+        class="p-button-success"
+      ></button>
       <button pButton label="Cancelar" icon="pi pi-times" (click)="displayDialog=false" class="p-button-secondary"></button>
     </p-footer>
     <!-- extra footer for visibility -->
     <div class="modal-extra-footer">
-      <button pButton label="Guardar" icon="pi pi-check" (click)="save()" class="p-button-success"></button>
+      <button
+        *appHasPermission="isNew ? 'group:add' : 'group:edit'"
+        pButton
+        label="Guardar"
+        icon="pi pi-check"
+        (click)="save()"
+        class="p-button-success"
+      ></button>
     </div>
   </p-dialog>
 </div>

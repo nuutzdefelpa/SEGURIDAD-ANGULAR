@@ -6,6 +6,7 @@ import { Home } from './views/home/home';
 import { User } from './views/user/user';
 import { Groups } from './views/groups/groups';
 import { MainLayout } from './layout/main-layout/main-layout';
+import { permissionGuard } from './guards/permission.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -17,8 +18,18 @@ export const routes: Routes = [
     component: MainLayout,
     children: [
       { path: 'home', component: Home },
-      { path: 'user', component: User },
-      { path: 'groups', component: Groups }
+      {
+        path: 'user',
+        component: User,
+        canActivate: [permissionGuard],
+        data: { permissions: ['user:view', 'users:view'] }
+      },
+      {
+        path: 'groups',
+        component: Groups,
+        canActivate: [permissionGuard],
+        data: { permissions: 'group:view' }
+      }
     ]
   },
   { path: '**', redirectTo: 'landing' }
