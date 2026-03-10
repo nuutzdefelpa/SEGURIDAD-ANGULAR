@@ -6,6 +6,7 @@
     </div>
     <div class="board-actions">
       <app-quick-filters [currentFilter]="activeFilter()" (filterChange)="setFilter($event)"></app-quick-filters>
+      <button pButton type="button" routerLink="/tickets/list" label="Ir a lista" icon="pi pi-list" severity="secondary"></button>
       <button *appHasPermission="'ticket:add'" pButton type="button" routerLink="/tickets/create" label="Crear ticket" icon="pi pi-plus"></button>
     </div>
   </div>
