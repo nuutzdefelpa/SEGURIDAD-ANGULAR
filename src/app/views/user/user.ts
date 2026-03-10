@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
-import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -11,6 +10,7 @@ import { ConfirmationService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 import { HasPermissionDirective } from '../../directives/has-permission.directive';
 import { PermissionsService } from '../../services/permissions.service';
+import { WorkspaceDataService } from '../../services/workspace-data.service';
 
 @Component({
   standalone: true,
@@ -19,7 +19,6 @@ import { PermissionsService } from '../../services/permissions.service';
     CommonModule,
     FormsModule,
     CardModule,
-    AvatarModule,
     ButtonModule,
     DialogModule,
     InputTextModule,
@@ -30,19 +29,19 @@ import { PermissionsService } from '../../services/permissions.service';
   providers: [ConfirmationService],
   templateUrl: './user.html',
   styleUrl: './user.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class User {
-  // placeholder perfil de usuario (dino‑nombres)
-  user: any = {
-    usuario: 'dino_user_01',
-    fullName: 'Dino Nombre',
-    email: 'dino@erp.local',
-    dob: '1990-01-01',
-    phone: '+34 600 000 000',
-    address: 'Valle Jurásico 123',
-  };
+  private readonly workspaceDataService = inject(WorkspaceDataService);
 
-  userCopy: any = {};
+  readonly user = this.workspaceDataService.currentUserProfile;
+  readonly userSummary = this.workspaceDataService.userSummary;
+  readonly assignedTickets = computed(() => {
+    const username = this.user().username;
+    return this.workspaceDataService.tickets().filter(ticket => ticket.assignee === username);
+  });
+
+  userCopy = this.user();
   displayEditDialog = false;
   userDeleted = false;
 
@@ -56,7 +55,7 @@ export class User {
       return;
     }
 
-    this.userCopy = { ...this.user };
+    this.userCopy = { ...this.user() };
     this.displayEditDialog = true;
   }
 
@@ -65,7 +64,6 @@ export class User {
       return;
     }
 
-    this.user = { ...this.userCopy };
     this.displayEditDialog = false;
   }
 

@@ -1,14 +1,76 @@
-<div class="groups-container">
-  <div class="groups-total">
-    <h2>Total</h2>
-    <div class="total-number">{{ total }}</div>
-  </div>
+@if (selectedGroup(); as group) {
+  <section class="groups-container">
+    <p-card class="hero-card">
+      <div class="groups-header">
+        <div>
+          <h1>Gestión de grupo</h1>
+          <p>Administra miembros y la configuración básica del workspace seleccionado.</p>
+        </div>
+        <div class="groups-total">
+          <span>Miembros activos</span>
+          <strong>{{ total() }}</strong>
+        </div>
+      </div>
+    </p-card>
 
-  <div class="groups-advance">
-    <h3>Advance</h3>
-    <p-card class="advance-card"></p-card>
-  </div>
-</div>
+    <div class="groups-grid">
+      <p-card>
+        <h3>Configuración del grupo</h3>
+        <div class="group-form">
+          <label>
+            Nombre
+            <input #groupName pInputText type="text" [value]="group.name" />
+          </label>
+          <label>
+            Descripción
+            <textarea #groupDescription pTextarea>{{ group.description }}</textarea>
+          </label>
+          <div class="action-row">
+            <button *appHasPermission="'group:edit'" pButton type="button" label="Guardar cambios" (click)="saveSelectedGroup(groupName.value, groupDescription.value)"></button>
+            <button *appHasPermission="'group:delete'" pButton type="button" label="Eliminar grupo" severity="danger" (click)="deleteGroup()"></button>
+          </div>
+        </div>
+      </p-card>
 
-<!-- CRUD de grupos debajo de los datos generales -->
-<app-crud *appHasPermission="'group:view'"></app-crud>
+      <p-card>
+        <h3>Agregar usuario por email</h3>
+        <div class="group-form">
+          <label>
+            Email del usuario
+            <input pInputText type="email" [ngModel]="newMemberEmail()" (ngModelChange)="newMemberEmail.set($event)" />
+          </label>
+          <button *appHasPermission="'group:add'" pButton type="button" label="Agregar al grupo" icon="pi pi-user-plus" (click)="addMember()"></button>
+        </div>
+      </p-card>
+    </div>
+
+    <p-card>
+      <h3>Usuarios del grupo</h3>
+      <p-table [value]="members()" dataKey="username" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th scope="col">Usuario</th>
+            <th scope="col">Email</th>
+            <th scope="col">Permisos</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-member>
+          <tr>
+            <td>{{ member.fullName }}</td>
+            <td>{{ member.email }}</td>
+            <td>{{ member.permissions.join(', ') }}</td>
+            <td>
+              <button *appHasPermission="'group:delete'" pButton type="button" label="Quitar" severity="danger" size="small" (click)="removeMember(member.username)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </section>
+} @else {
+  <p-card>
+    <h2>No hay grupo seleccionado</h2>
+    <p>Selecciona un grupo desde la vista principal para administrar su configuración.</p>
+  </p-card>
+}

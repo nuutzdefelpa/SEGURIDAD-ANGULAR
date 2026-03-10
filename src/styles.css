@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 /* Global Styles */
 * {
   margin: 0;
@@ -5,10 +7,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  --erp-bg: #eaf6ff;
+  --erp-bg-soft: #f5fbff;
+  --erp-surface: #ffffff;
+  --erp-surface-muted: #eef7ff;
+  --erp-border: #c9e6fb;
+  --erp-text: #09334d;
+  --erp-text-soft: #4d6a7f;
+  --erp-accent: #2196d9;
+}
+
 html, body {
   height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f5f5;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #d7f1ff 0%, #edf8ff 100%);
+  color-scheme: light;
 }
 
 body {
@@ -16,13 +30,22 @@ body {
   padding: 0;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
+  color: var(--erp-text);
 }
 
 /* PrimeNG Global Customizations */
 .p-card {
-  border: none;
-  border-radius: 8px;
+  border: 1px solid var(--erp-border);
+  border-radius: 14px;
+  background: var(--erp-surface) !important;
+  color: var(--erp-text) !important;
+}
+
+.p-card .p-card-body,
+.p-card .p-card-content,
+.p-card .p-card-header {
+  background: transparent;
+  color: inherit;
 }
 
 .p-button {
@@ -41,25 +64,129 @@ body {
 }
 
 .p-button-secondary {
-  background-color: #f0f0f0;
-  color: #333;
-  border: 2px solid #667eea;
+  background-color: #dff2ff !important;
+  color: #0f3c5a !important;
+  border: 1px solid #8dccf3 !important;
 }
 
 .p-button-secondary:hover {
-  background-color: #e8e8e8;
+  background-color: #cfeaff !important;
+}
+
+.p-button.p-button-secondary,
+.p-button.p-button-secondary:enabled:hover,
+.p-button.p-button-secondary:enabled:focus {
+  background-color: #dff2ff !important;
+  color: #0f3c5a !important;
+  border: 1px solid #8dccf3 !important;
+  box-shadow: none;
 }
 
 .p-input-icon-left > input,
 .p-input-icon-right > input,
 .p-inputtext {
-  border-radius: 6px;
-  border: 1px solid #ddd;
+  border-radius: 10px;
+  border: 1px solid var(--erp-border);
+  background: #f8fcff !important;
+  color: var(--erp-text) !important;
 }
 
 .p-inputtext:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  border-color: var(--erp-accent);
+  box-shadow: 0 0 0 0.2rem rgba(33, 150, 217, 0.2);
+}
+
+textarea.p-inputtext,
+select.p-inputtext {
+  background: #f8fcff !important;
+  color: var(--erp-text) !important;
+  border: 1px solid var(--erp-border) !important;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='date'],
+input[type='password'],
+textarea,
+select,
+.p-inputtextarea,
+.p-dialog input,
+.p-dialog textarea,
+.p-dialog select {
+  background: #f8fcff !important;
+  color: var(--erp-text) !important;
+  border-color: var(--erp-border) !important;
+}
+
+input[readonly],
+textarea[readonly],
+input:disabled,
+textarea:disabled,
+select:disabled,
+.p-inputtext[readonly],
+.p-inputtextarea[readonly] {
+  background: #eef7ff !important;
+  color: var(--erp-text) !important;
+  opacity: 1;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--erp-text);
+  -webkit-box-shadow: 0 0 0 1000px #f8fcff inset;
+}
+
+.p-datatable,
+.p-datatable table,
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td {
+  background: var(--erp-surface) !important;
+  color: var(--erp-text) !important;
+  border-color: var(--erp-border) !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--erp-surface-muted) !important;
+}
+
+.p-dialog .p-dialog-header,
+.p-dialog .p-dialog-content,
+.p-dialog .p-dialog-footer,
+.p-dialog .p-dialog-titlebar {
+  background: var(--erp-surface-muted) !important;
+  color: var(--erp-text) !important;
+}
+
+.p-dialog .p-dialog-content {
+  border-top: 1px solid var(--erp-border);
+  border-bottom: 1px solid var(--erp-border);
+}
+
+.ticket-list-page,
+.ticket-create-page,
+.ticket-detail-page,
+.board-page,
+.group-dashboard,
+.groups-container,
+.crud-container {
+  padding: 1.25rem;
+  border-radius: 16px;
+  background: var(--erp-bg-soft);
+  border: 1px solid var(--erp-border);
+  color: var(--erp-text);
+}
+
+.ticket-list-page p,
+.ticket-create-page p,
+.ticket-detail-page p,
+.board-page p,
+.group-dashboard p,
+.groups-container p,
+.crud-container p {
+  color: var(--erp-text-soft);
 }
 
 .p-divider {
@@ -91,11 +218,11 @@ body {
 
 /* Link Styling */
 a {
-  color: #667eea;
+  color: #1f8cca;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #764ba2;
+  color: #126797;
 }

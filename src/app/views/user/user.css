@@ -1,16 +1,22 @@
 .user-container { 
   padding: 1.5rem; 
-  background: #2ecc71; /* dinoverde */
+  background: linear-gradient(135deg, #f7f4ee, #e9f5ff);
   border-radius: 12px;
   margin: 2rem auto;
-  max-width: 500px;
+  max-width: 900px;
   color: #073642;
 }
 .user-header { display: flex; gap: 1rem; align-items: center; }
-.user-avatar { background: linear-gradient(135deg, #2ecc71 0%, #3498db 100%); color: white; }
 .user-body { margin-top: 1rem; display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
 .field { color: #073642; }
 .muted { color: #6c757d; margin: 0; }
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+.summary-item { background: #fff; padding: 0.85rem 1rem; border-radius: 0.85rem; }
+.summary-item span, .summary-item strong { display: block; }
+.summary-item strong { font-size: 1.5rem; }
+.assigned-section { margin-top: 1rem; }
+.ticket-list { display: grid; gap: 0.75rem; }
+.ticket-item { background: #fff; border-radius: 0.85rem; padding: 0.85rem 1rem; display: flex; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
 
 /* Mantener dino‑estilos: tarjetas claras */
 .user-container .p-card { background-color: #e6f9ff !important; color: #073642; }
@@ -20,19 +26,27 @@
 .p-dialog .p-fluid .p-field { margin-bottom: 1rem; }
 
 /* label color in dialog */
-.p-dialog .p-field label { color: #2ecc71; font-weight: bold; }
+.p-dialog .p-field label {
+  color: #1f8cca;
+  font-weight: 700;
+}
 
-/* inputs full width + centered container */
-.p-dialog .p-field { display: flex; flex-direction: column; align-items: center; }
+/* Keep a normal form layout so labels/inputs align correctly. */
+.p-dialog .p-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 .p-dialog input,
-.p-dialog textarea { width: 90%; }
+.p-dialog textarea {
+  width: 100%;
+}
 
-/* dialog background dinoverde */
-:host ::ng-deep .p-dialog .p-dialog-content { background-color: #2ecc71; color: #073642; }
+:host ::ng-deep .p-dialog .p-dialog-content { background-color: #eef8ff; color: #09334d; }
 :host ::ng-deep .p-dialog .p-footer { display: flex; justify-content: flex-end; background: transparent; }
 
 /* header style */
-:host ::ng-deep .p-dialog .p-dialog-titlebar { background-color: #2ecc71 !important; color: #073642 !important; }
+:host ::ng-deep .p-dialog .p-dialog-titlebar { background-color: #dff2ff !important; color: #09334d !important; }
 :host ::ng-deep .p-dialog .p-dialog-title { font-weight: bold; }
 
 /* button spacing inside dialog */
@@ -43,7 +57,7 @@
 .modal-extra-footer .p-button { width: 10rem; }
 
 /* make success button stand out */
-.p-dialog .p-button-success { background-color: #073642 !important; border-color: #073642 !important; color: white !important; }
+.p-dialog .p-button-success { background-color: #1f8cca !important; border-color: #1f8cca !important; color: white !important; }
 
 /* caso cuenta eliminada */
 .user-container h3 { color: #c00; }

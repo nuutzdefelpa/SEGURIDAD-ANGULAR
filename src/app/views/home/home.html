@@ -1,44 +1,78 @@
-<div class="home-container">
+<section class="home-container">
   <div class="home-header">
-    <h1>Dino-Panel ERP 🦖</h1>
-    <p>🦖🦖🦖</p>
+    <div>
+      <p class="eyebrow">Login / Selección de grupo</p>
+      <h1>Hola, {{ currentUser().fullName }}</h1>
+      <p>Selecciona el espacio de trabajo al que quieres entrar después del login.</p>
+    </div>
+    @if (canViewTickets()) {
+      <button
+        pButton
+        type="button"
+        routerLink="/dashboard"
+        label="Ir al dashboard actual"
+        icon="pi pi-arrow-right"
+      ></button>
+    }
   </div>
 
-  <div class="stats-grid">
-    <div *ngFor="let stat of dashboardStats" class="stat-card">
+  <div class="groups-grid">
+    @for (group of availableGroups(); track group.id) {
       <p-card>
-        <div class="stat-content">
-          <div class="stat-icon" [style.color]="stat.color">
-            <i [class]="stat.icon"></i>
+        <div class="group-card">
+          <div>
+            <h3>{{ group.name }}</h3>
+            <p>{{ group.description }}</p>
           </div>
-          <div class="stat-text">
-            <h3>{{ stat.title }}</h3>
-            <p class="stat-value">{{ stat.value }}</p>
+          <div class="group-actions">
+            <button pButton type="button" label="Seleccionar" severity="secondary" (click)="selectGroup(group.id)"></button>
+            @if (canViewTickets()) {
+              <button
+                pButton
+                type="button"
+                label="Entrar"
+                icon="pi pi-arrow-right"
+                (click)="enterDashboard(group.id)"
+              ></button>
+            }
           </div>
         </div>
       </p-card>
-    </div>
+    } @empty {
+      <p-card>
+        <p>No tienes grupos disponibles todavía.</p>
+      </p-card>
+    }
   </div>
 
   <p-divider></p-divider>
 
-  <div class="activity-section">
+  @if (selectedGroup(); as group) {
     <p-card>
-      <ng-template pTemplate="header">
-        <div class="card-header">
-          <h3>Actividad Reciente</h3>
+      <div class="selected-group-summary">
+        <div>
+          <h3>Grupo seleccionado: {{ group.name }}</h3>
+          <p>{{ group.description }}</p>
         </div>
-      </ng-template>
-      <div class="activity-list">
-        <div *ngFor="let activity of recentActivities" class="activity-item">
-          <p-avatar icon="pi pi-user" size="large" [style]="{'background-color': '#3498db', 'color': '#fff'}"></p-avatar>
-          <div class="activity-info">
-            <p class="activity-user">{{ activity.user }}</p>
-            <p class="activity-action">{{ activity.action }}</p>
-            <small class="activity-time">{{ activity.time }}</small>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span>Total</span>
+            <strong>{{ selectedGroupStats().total }}</strong>
+          </div>
+          <div class="summary-item">
+            <span>Pendiente</span>
+            <strong>{{ selectedGroupStats().pendiente }}</strong>
+          </div>
+          <div class="summary-item">
+            <span>En progreso</span>
+            <strong>{{ selectedGroupStats().enProgreso }}</strong>
+          </div>
+          <div class="summary-item">
+            <span>Hecho</span>
+            <strong>{{ selectedGroupStats().hecho }}</strong>
           </div>
         </div>
       </div>
     </p-card>
-  </div>
-</div>
+  }
+</section>

@@ -1,0 +1,114 @@
+@if (ticket(); as ticketData) {
+  <section class="ticket-detail-page">
+    <div class="detail-header">
+      <div>
+        <p class="eyebrow">Detalle del ticket</p>
+        <h1>#{{ ticketData.id }} {{ ticketData.title }}</h1>
+      </div>
+      <div class="detail-actions">
+        <button pButton type="button" routerLink="/tickets/board" label="Tablero" severity="secondary"></button>
+        <button pButton type="button" label="Guardar cambios" icon="pi pi-save" (click)="saveTicket()"></button>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <p-card>
+        <form [formGroup]="detailForm" class="detail-form">
+          <label>
+            Título
+            <input pInputText type="text" formControlName="title" [readonly]="!canEditAllFields()" />
+          </label>
+
+          <label>
+            Descripción
+            <textarea pTextarea formControlName="description" [readonly]="!canEditAllFields()"></textarea>
+          </label>
+
+          <div class="form-grid">
+            <label>
+              Estado actual
+              <select class="p-inputtext p-component" formControlName="status" [disabled]="!canEditAllFields() && !canEditStateOnly()">
+                @for (status of statuses; track status) {
+                  <option [value]="status">{{ status }}</option>
+                }
+              </select>
+            </label>
+
+            <label>
+              Asignado a
+              <select class="p-inputtext p-component" formControlName="assignee" [disabled]="!canEditAllFields()">
+                <option value="">Sin asignar</option>
+                @for (member of members(); track member.username) {
+                  <option [value]="member.username">{{ member.fullName }}</option>
+                }
+              </select>
+            </label>
+
+            <label>
+              Prioridad
+              <select class="p-inputtext p-component" formControlName="priority" [disabled]="!canEditAllFields()">
+                @for (priority of priorities; track priority) {
+                  <option [value]="priority">{{ priority }}</option>
+                }
+              </select>
+            </label>
+
+            <label>
+              Fecha límite
+              <input pInputText type="date" formControlName="dueDate" [readonly]="!canEditAllFields()" />
+            </label>
+          </div>
+        </form>
+      </p-card>
+
+      <p-card>
+        <h3>Resumen</h3>
+        <p><strong>Creador:</strong> {{ ticketData.creator }}</p>
+        <p><strong>Fecha de creación:</strong> {{ ticketData.createdAt }}</p>
+        <p><strong>Asignado:</strong> {{ ticketData.assignee ?? 'Sin asignar' }}</p>
+        <p><strong>Permiso de edición completa:</strong> {{ canEditAllFields() ? 'Sí' : 'No' }}</p>
+        <p><strong>Permiso de cambio de estado:</strong> {{ canEditStateOnly() ? 'Sí' : 'No' }}</p>
+      </p-card>
+    </div>
+
+    <div class="detail-grid secondary-grid">
+      <p-card>
+        <h3>Comentarios / actividad</h3>
+        <div class="comment-form">
+          <textarea pTextarea [value]="comment()" (input)="comment.set($any($event.target).value)"></textarea>
+          <button pButton type="button" label="Agregar comentario" (click)="addComment()"></button>
+        </div>
+
+        <div class="timeline-list">
+          @for (commentItem of ticketData.comments; track commentItem.id) {
+            <article class="timeline-item">
+              <strong>{{ commentItem.author }}</strong>
+              <p>{{ commentItem.message }}</p>
+              <small>{{ commentItem.createdAt }}</small>
+            </article>
+          } @empty {
+            <p>Sin comentarios todavía.</p>
+          }
+        </div>
+      </p-card>
+
+      <p-card>
+        <h3>Historial de cambios</h3>
+        <div class="timeline-list">
+          @for (historyEntry of ticketData.history; track historyEntry.id) {
+            <article class="timeline-item">
+              <strong>{{ historyEntry.actor }}</strong>
+              <p>{{ historyEntry.message }}</p>
+              <small>{{ historyEntry.createdAt }}</small>
+            </article>
+          }
+        </div>
+      </p-card>
+    </div>
+  </section>
+} @else {
+  <p-card>
+    <h2>Ticket no encontrado</h2>
+    <button pButton type="button" routerLink="/tickets/list" label="Volver a lista"></button>
+  </p-card>
+}

@@ -1,0 +1,106 @@
+<section class="users-page">
+  <div class="users-header">
+    <div>
+      <h1>Gestión de usuarios</h1>
+      <p>Aquí el usuario con permisos adecuados puede crear usuarios, asignar permisos y mantener el CRUD.</p>
+    </div>
+    <button *ngIf="canAddUsers()" pButton type="button" label="Nuevo usuario" icon="pi pi-plus" (click)="openNew()"></button>
+  </div>
+
+  <p-table [value]="users()" dataKey="username" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Email</th>
+        <th scope="col">Grupos</th>
+        <th scope="col">Permisos</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>
+          <strong>{{ user.fullName }}</strong>
+          <div>@{{ user.username }}</div>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.groupIds.join(', ') }}</td>
+        <td>{{ user.permissions.join(', ') }}</td>
+        <td>
+          <div class="action-row">
+            <button *ngIf="canEditUsers()" pButton type="button" label="Editar" size="small" severity="secondary" (click)="openEdit(user.username)"></button>
+            <button *ngIf="canDeleteUsers() && user.username !== 'superadmin'" pButton type="button" label="Eliminar" size="small" severity="danger" (click)="deleteUser(user.username)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog [visible]="dialogVisible()" (visibleChange)="dialogVisible.set($event)" [modal]="true" [style]="{ width: '720px' }" [closable]="true" [header]="editingUsername() ? 'Editar usuario' : 'Nuevo usuario'">
+    <div class="dialog-grid">
+      <label>
+        Usuario
+        <input pInputText type="text" [ngModel]="editableUser().username" (ngModelChange)="updateField('username', $event)" />
+      </label>
+      <label>
+        Nombre completo
+        <input pInputText type="text" [ngModel]="editableUser().fullName" (ngModelChange)="updateField('fullName', $event)" />
+      </label>
+      <label>
+        Email
+        <input pInputText type="email" [ngModel]="editableUser().email" (ngModelChange)="updateField('email', $event)" />
+      </label>
+      <label>
+        Fecha de nacimiento
+        <input pInputText type="date" [ngModel]="editableUser().dob" (ngModelChange)="updateField('dob', $event)" />
+      </label>
+      <label>
+        Teléfono
+        <input pInputText type="text" [ngModel]="editableUser().phone" (ngModelChange)="updateField('phone', $event)" />
+      </label>
+      <label>
+        Dirección
+        <input pInputText type="text" [ngModel]="editableUser().address" (ngModelChange)="updateField('address', $event)" />
+      </label>
+    </div>
+
+    <div class="dialog-sections">
+      <div>
+        <h3>Grupos</h3>
+        <div class="checkbox-grid">
+          @for (group of groups(); track group.id) {
+            <label class="checkbox-item">
+              <input
+                type="checkbox"
+                [checked]="editableUser().groupIds.includes(group.id)"
+                (change)="onGroupToggle(group.id, $event)"
+              />
+              <span>{{ group.name }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <div>
+        <h3>Permisos</h3>
+        <div class="checkbox-grid permissions-grid">
+          @for (permission of allPermissions; track permission) {
+            <label class="checkbox-item">
+              <input
+                type="checkbox"
+                [checked]="editableUser().permissions.includes(permission)"
+                (change)="onPermissionToggle(permission, $event)"
+              />
+              <span>{{ permission }}</span>
+            </label>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button pButton type="button" label="Guardar" icon="pi pi-check" (click)="saveUser()"></button>
+      <button pButton type="button" label="Cancelar" severity="secondary" (click)="closeDialog()"></button>
+    </div>
+  </p-dialog>
+</section>

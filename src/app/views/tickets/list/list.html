@@ -1,0 +1,71 @@
+<section class="ticket-list-page">
+  <div class="list-header">
+    <div>
+      <h1>Lista de tickets</h1>
+      <p>Filtra por estado, prioridad o asignado para revisar el backlog completo.</p>
+    </div>
+    <button pButton type="button" routerLink="/tickets/board" label="Ir a tablero" icon="pi pi-th-large" severity="secondary"></button>
+  </div>
+
+  <app-quick-filters [currentFilter]="quickFilter()" (filterChange)="setQuickFilter($event)"></app-quick-filters>
+
+  <div class="filters-row">
+    <label>
+      Estado
+      <select class="p-inputtext p-component" [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)">
+        <option value="Todos">Todos</option>
+        @for (status of statuses; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Prioridad
+      <select class="p-inputtext p-component" [ngModel]="priorityFilter()" (ngModelChange)="priorityFilter.set($event)">
+        <option value="Todas">Todas</option>
+        @for (priority of priorities; track priority) {
+          <option [value]="priority">{{ priority }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Asignado a
+      <select class="p-inputtext p-component" [ngModel]="assigneeFilter()" (ngModelChange)="assigneeFilter.set($event)">
+        <option value="">Todos</option>
+        @for (assignee of assignees(); track assignee) {
+          <option [value]="assignee">{{ assignee }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <p-table [value]="tickets()" dataKey="id" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">ID / Título</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Asignado a</th>
+        <th scope="col">Prioridad</th>
+        <th scope="col">Fecha límite</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ticket>
+      <tr>
+        <td>
+          <strong>#{{ ticket.id }}</strong>
+          <div>{{ ticket.title }}</div>
+        </td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.assignee ?? 'Sin asignar' }}</td>
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.dueDate }}</td>
+        <td>
+          <button pButton type="button" [routerLink]="['/tickets', ticket.id]" label="Detalle" size="small" severity="secondary"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

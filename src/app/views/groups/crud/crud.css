@@ -1,8 +1,9 @@
 .crud-container { 
   padding: 1rem; 
-  background: #2ecc71; /* dinoverde */
+  background: linear-gradient(180deg, #e9f6ff 0%, #f5fbff 100%);
   border-radius: 12px;
-  color: #073642;
+  border: 1px solid #c9e6fb;
+  color: #09334d;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,14 +25,14 @@
 .groups-table .p-button.p-button-danger .pi { color: #fff !important; }
 
 /* label color in dialog */
-.p-dialog .p-field label { color: #2ecc71; font-weight: bold; }
+.p-dialog .p-field label { color: #1f8cca; font-weight: 700; }
 .p-dialog .p-field { display: flex; flex-direction: column; align-items: center; }
 .p-dialog input,
 .p-dialog textarea { width: 90%; }
 .p-dialog .p-footer .p-button { margin-left: 0.5rem; }
 
-/* dialog background dinoverde */
-:host ::ng-deep .p-dialog .p-dialog-content { background-color: #2ecc71; color: #073642; }
+/* keep dialogs in the same light palette as login/tickets */
+:host ::ng-deep .p-dialog .p-dialog-content { background-color: #eef8ff; color: #09334d; }
 :host ::ng-deep .p-dialog .p-footer { display: flex; justify-content: flex-end; background: transparent; }
 
 /* modal spacing */
@@ -43,9 +44,9 @@
 
 
 /* header style */
-:host ::ng-deep .p-dialog .p-dialog-titlebar { background-color: #2ecc71 !important; color: #073642 !important; }
+:host ::ng-deep .p-dialog .p-dialog-titlebar { background-color: #dff2ff !important; color: #09334d !important; }
 :host ::ng-deep .p-dialog .p-dialog-title { font-weight: bold; }
 
-/* make success button stand out on green background */
-.p-dialog .p-button-success { background-color: #073642 !important; border-color: #073642 !important; color: white !important; }
+/* make success button stand out on clear background */
+.p-dialog .p-button-success { background-color: #1f8cca !important; border-color: #1f8cca !important; color: white !important; }
 

@@ -1,0 +1,110 @@
+.board-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.board-header {
+  display: grid;
+  gap: 1rem;
+}
+
+.board-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(240px, 1fr));
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.board-column {
+  min-width: 240px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ticket-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #f7f4ee;
+  border: 1px solid #eadfcd;
+}
+
+.ticket-card h4,
+.ticket-card p {
+  margin: 0;
+}
+
+.ticket-card-top,
+.ticket-card-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ticket-card-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.empty-column {
+  color: #6b7280;
+}
+
+.status-chip,
+.priority-chip {
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pendiente {
+  background: #fef3c7;
+}
+
+.en-progreso {
+  background: #dbeafe;
+}
+
+.revision {
+  background: #ede9fe;
+}
+
+.bloqueado {
+  background: #fee2e2;
+}
+
+.hecho {
+  background: #dcfce7;
+}
+
+.alta {
+  background: #fee2e2;
+}
+
+.media {
+  background: #fef3c7;
+}
+
+.baja {
+  background: #e0f2fe;
+}

@@ -4,19 +4,51 @@
   <p-card>
     <ng-template pTemplate="header">
       <div class="user-header">
-        <p-avatar label="D" size="large" styleClass="user-avatar"></p-avatar>
         <div>
-          <h2>{{ user.fullName }} 🦖</h2>
-          <p class="muted">@{{ user.usuario }}</p>
+          <h2>{{ user().fullName }}</h2>
+          <p class="muted">@{{ user().username }}</p>
         </div>
       </div>
     </ng-template>
 
     <div class="user-body">
-      <div class="field"><strong>Email:</strong> {{ user.email }}</div>
-      <div class="field"><strong>Fecha de nacimiento:</strong> {{ user.dob }}</div>
-      <div class="field"><strong>Teléfono:</strong> {{ user.phone }}</div>
-      <div class="field"><strong>Dirección:</strong> {{ user.address }}</div>
+      <div class="field"><strong>Email:</strong> {{ user().email }}</div>
+      <div class="field"><strong>Fecha de nacimiento:</strong> {{ user().dob }}</div>
+      <div class="field"><strong>Teléfono:</strong> {{ user().phone }}</div>
+      <div class="field"><strong>Dirección:</strong> {{ user().address }}</div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span>Asignados</span>
+        <strong>{{ userSummary().total }}</strong>
+      </div>
+      <div class="summary-item">
+        <span>Abiertos</span>
+        <strong>{{ userSummary().abiertos }}</strong>
+      </div>
+      <div class="summary-item">
+        <span>En progreso</span>
+        <strong>{{ userSummary().enProgreso }}</strong>
+      </div>
+      <div class="summary-item">
+        <span>Hechos</span>
+        <strong>{{ userSummary().hechos }}</strong>
+      </div>
+    </div>
+
+    <div class="assigned-section">
+      <h3>Tickets asignados</h3>
+      <div class="ticket-list">
+        @for (ticket of assignedTickets(); track ticket.id) {
+          <div class="ticket-item">
+            <strong>#{{ ticket.id }} {{ ticket.title }}</strong>
+            <span>{{ ticket.status }} · {{ ticket.priority }}</span>
+          </div>
+        } @empty {
+          <p>No tienes tickets asignados.</p>
+        }
+      </div>
     </div>
 
     <ng-template pTemplate="footer">

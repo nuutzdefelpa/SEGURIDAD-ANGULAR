@@ -1,0 +1,54 @@
+.users-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.users-header,
+.action-row,
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dialog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.dialog-grid label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.dialog-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.checkbox-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.permissions-grid {
+  max-height: 260px;
+  overflow: auto;
+}
+
+.checkbox-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .dialog-sections {
+    grid-template-columns: 1fr;
+  }
+}

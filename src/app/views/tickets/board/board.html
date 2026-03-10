@@ -1,0 +1,49 @@
+<section class="board-page">
+  <div class="board-header">
+    <div>
+      <h1>Tablero Kanban</h1>
+      <p>Mueve tickets entre columnas y entra al detalle para editar información.</p>
+    </div>
+    <div class="board-actions">
+      <app-quick-filters [currentFilter]="activeFilter()" (filterChange)="setFilter($event)"></app-quick-filters>
+      <button *appHasPermission="'ticket:add'" pButton type="button" routerLink="/tickets/create" label="Crear ticket" icon="pi pi-plus"></button>
+    </div>
+  </div>
+
+  <div class="board-columns">
+    @for (status of statuses; track status) {
+      <div class="board-column" (dragover)="allowDrop($event)" (drop)="drop(status)">
+        <p-card>
+          <ng-template pTemplate="header">
+            <div class="column-header">
+              <h3>{{ status }}</h3>
+              <span>{{ ticketsByStatus(status).length }}</span>
+            </div>
+          </ng-template>
+
+          <div class="column-body">
+            @for (ticket of ticketsByStatus(status); track ticket.id) {
+              <article class="ticket-card" [draggable]="canMoveTickets()" (dragstart)="dragStart(ticket.id)">
+                <div class="ticket-card-top">
+                  <span [class]="priorityClass(ticket.priority)">{{ ticket.priority }}</span>
+                  <span>#{{ ticket.id }}</span>
+                </div>
+                <h4>{{ ticket.title }}</h4>
+                <p>{{ ticket.description }}</p>
+                <div class="ticket-card-meta">
+                  <span [class]="statusClass(ticket.status)">{{ ticket.status }}</span>
+                  <span>Asignado: {{ ticket.assignee ?? 'Sin asignar' }}</span>
+                  <span>Creado: {{ ticket.createdAt }}</span>
+                  <span>Límite: {{ ticket.dueDate }}</span>
+                </div>
+                <button pButton type="button" [routerLink]="['/tickets', ticket.id]" label="Ver detalle" size="small" severity="secondary"></button>
+              </article>
+            } @empty {
+              <p class="empty-column">Sin tickets en esta columna.</p>
+            }
+          </div>
+        </p-card>
+      </div>
+    }
+  </div>
+</section>

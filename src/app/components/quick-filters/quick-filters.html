@@ -1,0 +1,12 @@
+<div class="quick-filters">
+  @for (option of options; track option.key) {
+    <button
+      pButton
+      type="button"
+      [label]="option.label"
+      [outlined]="currentFilter() !== option.key"
+      [severity]="currentFilter() === option.key ? 'contrast' : 'secondary'"
+      (click)="selectFilter(option.key)"
+    ></button>
+  }
+</div>

@@ -1,0 +1,108 @@
+@if (selectedGroup(); as group) {
+	<section class="group-dashboard">
+		<div class="dashboard-header">
+			<div>
+				<p class="eyebrow">Dashboard del grupo</p>
+				<h1>{{ group.name }}</h1>
+				<p>{{ group.description }}</p>
+			</div>
+			<div class="header-actions">
+				<button pButton type="button" routerLink="/tickets/board" label="Ver tablero" icon="pi pi-th-large" severity="secondary"></button>
+				<button pButton type="button" routerLink="/tickets/list" label="Ver lista" icon="pi pi-list" severity="secondary"></button>
+				<button
+					*appHasPermission="'ticket:add'"
+					pButton
+					routerLink="/tickets/create"
+					label="Crear ticket"
+					icon="pi pi-plus"
+					type="button"
+				></button>
+			</div>
+		</div>
+
+		<div class="stats-grid">
+			<p-card>
+				<p class="stat-label">Total tickets</p>
+				<p class="stat-value">{{ selectedGroupStats().total }}</p>
+			</p-card>
+			<p-card>
+				<p class="stat-label">Pendiente</p>
+				<p class="stat-value">{{ selectedGroupStats().pendiente }}</p>
+			</p-card>
+			<p-card>
+				<p class="stat-label">En progreso</p>
+				<p class="stat-value">{{ selectedGroupStats().enProgreso }}</p>
+			</p-card>
+			<p-card>
+				<p class="stat-label">Revisión</p>
+				<p class="stat-value">{{ selectedGroupStats().revision }}</p>
+			</p-card>
+			<p-card>
+				<p class="stat-label">Hecho</p>
+				<p class="stat-value">{{ selectedGroupStats().hecho }}</p>
+			</p-card>
+			<p-card>
+				<p class="stat-label">Bloqueado</p>
+				<p class="stat-value">{{ selectedGroupStats().bloqueado }}</p>
+			</p-card>
+		</div>
+
+		<p-divider></p-divider>
+
+		<div class="dashboard-panels">
+			<p-card>
+				<ng-template pTemplate="header">
+					<div class="card-head">
+						<h3>Tickets recientes</h3>
+						<app-quick-filters [currentFilter]="activeFilter()" (filterChange)="setFilter($event)"></app-quick-filters>
+					</div>
+				</ng-template>
+
+				<div class="ticket-list">
+					@for (ticket of filteredRecentTickets(); track ticket.id) {
+						<a class="ticket-row" [routerLink]="['/tickets', ticket.id]" aria-label="Ver detalle del ticket">
+							<div>
+								<strong>#{{ ticket.id }} {{ ticket.title }}</strong>
+								<p>{{ ticket.description }}</p>
+							</div>
+							<div class="ticket-meta">
+								<span [class]="statusClass(ticket.status)">{{ ticket.status }}</span>
+								<span [class]="priorityClass(ticket.priority)">{{ ticket.priority }}</span>
+							</div>
+						</a>
+					} @empty {
+						<p>No hay tickets visibles con este filtro.</p>
+					}
+				</div>
+			</p-card>
+
+			<p-card>
+				<ng-template pTemplate="header">
+					<div class="card-head">
+						<h3>Asignados a mí</h3>
+					</div>
+				</ng-template>
+
+				<div class="ticket-list compact">
+					@for (ticket of assignedTickets(); track ticket.id) {
+						<a class="ticket-row compact-row" [routerLink]="['/tickets', ticket.id]" aria-label="Ver ticket asignado">
+							<div>
+								<strong>{{ ticket.title }}</strong>
+								<p>Vence {{ ticket.dueDate }}</p>
+							</div>
+							<span [class]="statusClass(ticket.status)">{{ ticket.status }}</span>
+						</a>
+					} @empty {
+						<p>No tienes tickets asignados en este grupo.</p>
+					}
+				</div>
+			</p-card>
+		</div>
+	</section>
+} @else {
+	<p-card>
+		<h2>Sin grupo seleccionado</h2>
+		<p>Selecciona un grupo desde la vista principal para cargar su dashboard.</p>
+		<button pButton type="button" routerLink="/home" label="Ir a grupos"></button>
+	</p-card>
+}

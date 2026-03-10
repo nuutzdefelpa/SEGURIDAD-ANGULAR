@@ -1,5 +1,60 @@
-.groups-container { padding: 2rem; display: flex; flex-direction: row; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: center; }
-.groups-total { text-align: center; flex: 1 1 200px; }
-.total-number { font-size: 4rem; font-weight: 700; color: #073642; background: #dff6ff; padding: 1rem 2rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(2,10,15,0.06); }
-.groups-advance { flex: 2 1 300px; width: 100%; max-width: 900px; }
-.advance-card { min-height: 180px; background-color: #e6f9ff !important; }
+.groups-container {
+	display: grid;
+	gap: 1rem;
+	padding: 2rem;
+}
+
+.hero-card {
+	background: linear-gradient(135deg, #f7f4ee, #e9f5ff) !important;
+}
+
+.groups-header,
+.groups-total,
+.action-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.groups-total {
+	padding: 1rem 1.25rem;
+	border-radius: 1rem;
+	background: #fff;
+}
+
+.groups-total span,
+.groups-total strong {
+	display: block;
+}
+
+.groups-total strong {
+	font-size: 2rem;
+}
+
+.groups-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
+.group-form {
+	display: grid;
+	gap: 1rem;
+}
+
+.group-form label {
+	display: grid;
+	gap: 0.35rem;
+}
+
+@media (max-width: 900px) {
+	.groups-container {
+		padding: 1rem;
+	}
+
+	.groups-grid {
+		grid-template-columns: 1fr;
+	}
+}

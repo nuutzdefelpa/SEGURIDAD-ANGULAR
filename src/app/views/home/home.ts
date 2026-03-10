@@ -1,28 +1,36 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { AvatarModule } from 'primeng/avatar';
+import { PermissionsService } from '../../services/permissions.service';
+import { WorkspaceDataService } from '../../services/workspace-data.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, CardModule, ButtonModule, DividerModule, AvatarModule],
+  imports: [CommonModule, RouterLink, CardModule, ButtonModule, DividerModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  dashboardStats = [
-    { title: 'Facturas Emitidas', value: '1,234', icon: 'pi pi-file', color: '#3498db' },
-    { title: 'Clientes Activos', value: '876', icon: 'pi pi-users', color: '#2ecc71' },
-    { title: 'Items en Inventario', value: '3,450', icon: 'pi pi-box', color: '#e74c3c' },
-    { title: 'Proyectos Activos', value: '27', icon: 'pi pi-briefcase', color: '#f39c12' },
-  ];
+  private readonly router = inject(Router);
+  private readonly permissionsService = inject(PermissionsService);
+  private readonly workspaceDataService = inject(WorkspaceDataService);
 
-  recentActivities = [
-    { user: 'Juan Pérez', action: 'Generó factura #456', time: 'Hace 2 horas' },
-    { user: 'María García', action: 'Registró cliente nuevo', time: 'Hace 4 horas' },
-    { user: 'Carlos López', action: 'Actualizó inventario', time: 'Hace 6 horas' },
-    { user: 'Ana Martínez', action: 'Cerró proyecto Alpha', time: 'Hace 8 horas' },
-  ];
+  readonly currentUser = this.workspaceDataService.currentUserProfile;
+  readonly availableGroups = this.workspaceDataService.availableGroups;
+  readonly selectedGroup = this.workspaceDataService.selectedGroup;
+  readonly selectedGroupStats = this.workspaceDataService.selectedGroupStats;
+  readonly canViewTickets = computed(() => this.permissionsService.hasPermission('ticket:view'));
+
+  selectGroup(groupId: string): void {
+    this.workspaceDataService.selectGroup(groupId);
+  }
+
+  enterDashboard(groupId: string): void {
+    this.selectGroup(groupId);
+    this.router.navigate(['/dashboard']);
+  }
 }

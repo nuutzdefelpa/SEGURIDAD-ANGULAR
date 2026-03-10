@@ -4,10 +4,10 @@
     <form class="basic-form" (ngSubmit)="onSubmit()">
       <p-message *ngIf="loginError" severity="error" [text]="loginError"></p-message>
       <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-      <label>Email</label>
-      <input pInputText type="email" [(ngModel)]="email" name="email" />
-      <label>Contraseña</label>
-      <p-password [(ngModel)]="password" name="password" toggleMask="true"></p-password>
+      <label for="login-email">Email</label>
+      <input id="login-email" pInputText type="email" [(ngModel)]="email" name="email" />
+      <label for="login-password">Contraseña</label>
+      <p-password inputId="login-password" [(ngModel)]="password" name="password" toggleMask="true"></p-password>
       <button pButton type="submit" label="Entrar"></button>
     </form>
 

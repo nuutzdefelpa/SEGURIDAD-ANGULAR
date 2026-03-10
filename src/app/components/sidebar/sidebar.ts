@@ -20,13 +20,14 @@ interface MenuItem {
 })
 export class Sidebar {
   menuItems: MenuItem[] = [
-    { label: 'Dino-Home', icon: 'pi pi-home', routerLink: '/home' },
-    { label: 'Dino-Dashboard', icon: 'pi pi-chart-bar', routerLink: '#' },
-    { label: 'Dino-Productos', icon: 'pi pi-shopping-cart', routerLink: '#' },
-    { label: 'Dino-Clientes', icon: 'pi pi-users', routerLink: '#' },
-    { label: 'Dino-Reportes', icon: 'pi pi-file', routerLink: '#' },
-    { label: 'Dino-Usuarios', icon: 'pi pi-user', routerLink: '/user', requiredPermission: 'user:view' },
-    { label: 'Dino-Grupos', icon: 'pi pi-users', routerLink: '/groups', requiredPermission: 'group:view' },
+    { label: 'Mis grupos', icon: 'pi pi-home', routerLink: '/home' },
+    { label: 'Dashboard grupo', icon: 'pi pi-chart-bar', routerLink: '/dashboard', requiredPermission: 'ticket:view' },
+    { label: 'Tablero tickets', icon: 'pi pi-th-large', routerLink: '/tickets/board', requiredPermission: 'ticket:view' },
+    { label: 'Lista tickets', icon: 'pi pi-list', routerLink: '/tickets/list', requiredPermission: 'ticket:view' },
+    { label: 'Crear ticket', icon: 'pi pi-plus-circle', routerLink: '/tickets/create', requiredPermission: 'ticket:add' },
+    { label: 'Mi perfil', icon: 'pi pi-user', routerLink: '/user', requiredPermission: 'user:view' },
+    { label: 'Gestión grupo', icon: 'pi pi-users', routerLink: '/groups', requiredPermission: 'group:view' },
+    { label: 'Gestión usuarios', icon: 'pi pi-shield', routerLink: '/users', requiredPermission: 'users:view' },
   ];
 
   version = 'dino-version v1.dino.alpha🦖';

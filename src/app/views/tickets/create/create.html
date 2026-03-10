@@ -1,0 +1,62 @@
+<section class="ticket-create-page">
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="create-header">
+        <div>
+          <h1>Crear ticket</h1>
+          <p>Registra la información mínima para insertar el ticket en el tablero.</p>
+        </div>
+        <button pButton type="button" routerLink="/tickets/board" label="Cancelar" severity="secondary"></button>
+      </div>
+    </ng-template>
+
+    <form [formGroup]="ticketForm" class="ticket-form" (ngSubmit)="createTicket()">
+      <label>
+        Título
+        <input pInputText type="text" formControlName="title" />
+      </label>
+
+      <label>
+        Descripción
+        <textarea pTextarea formControlName="description"></textarea>
+      </label>
+
+      <div class="form-grid">
+        <label>
+          Estado inicial
+          <select class="p-inputtext p-component" formControlName="status">
+            @for (status of statuses; track status) {
+              <option [value]="status">{{ status }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Asignado a
+          <select class="p-inputtext p-component" formControlName="assignee">
+            <option value="">Sin asignar</option>
+            @for (member of members(); track member.username) {
+              <option [value]="member.username">{{ member.fullName }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Prioridad
+          <select class="p-inputtext p-component" formControlName="priority">
+            @for (priority of priorities; track priority) {
+              <option [value]="priority">{{ priority }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Fecha límite
+          <input pInputText type="date" formControlName="dueDate" />
+        </label>
+      </div>
+
+      <button pButton type="submit" label="Crear" icon="pi pi-check"></button>
+    </form>
+  </p-card>
+</section>

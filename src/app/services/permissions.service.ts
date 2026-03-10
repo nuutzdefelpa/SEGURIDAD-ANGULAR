@@ -75,7 +75,8 @@ export class PermissionsService {
 
   logout(): void {
     this.currentUserSignal.set(null);
-    globalThis.localStorage.removeItem(this.storageKey);
+    const storage = this.getStorage();
+    storage?.removeItem(this.storageKey);
   }
 
   hasPermission(permission: Permission): boolean {
@@ -110,11 +111,13 @@ export class PermissionsService {
       isSuperuser: user.isSuperuser,
       permissions: [...user.permissions]
     };
-    globalThis.localStorage.setItem(this.storageKey, JSON.stringify(serializable));
+    const storage = this.getStorage();
+    storage?.setItem(this.storageKey, JSON.stringify(serializable));
   }
 
   private loadStoredUser(): AuthUser | null {
-    const rawUser = globalThis.localStorage.getItem(this.storageKey);
+    const storage = this.getStorage();
+    const rawUser = storage?.getItem(this.storageKey);
     if (!rawUser) {
       return null;
     }
@@ -134,5 +137,9 @@ export class PermissionsService {
     } catch {
       return null;
     }
+  }
+
+  private getStorage(): Storage | null {
+    return globalThis.localStorage ?? null;
   }
 }
